@@ -1,0 +1,31 @@
+[
+  {
+    "model": "useraccounts.UserRole",
+    "pk": "CST",
+    "fields": {
+      "description": "Customer"
+    }
+  },
+  {
+    "model": "useraccounts.UserRole",
+    "pk": "MNF",
+    "fields": {
+      "description": "Manufacturer"
+    }
+  },
+  {
+    "model": "useraccounts.UserRole",
+    "pk": "SUP",
+    "fields": {
+      "description": "Supplier"
+    }
+  },
+  {
+    "model": "useraccounts.UserRole",
+    "pk": "SEL",
+    "fields": {
+      "description": "Seller"
+    }
+  }
+
+]

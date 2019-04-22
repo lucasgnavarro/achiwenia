@@ -1,0 +1,11 @@
+[
+  {
+    "model": "tenants.DatabaseServer",
+    "pk": "1",
+    "fields": {
+      "engine": "django.db.backends.postgresql",
+      "host": "127.0.0.1",
+      "port": "5432"
+    }
+  }
+]
