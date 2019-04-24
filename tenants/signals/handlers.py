@@ -22,23 +22,33 @@ def tenant_creation_handler(sender, instance, created, **kwargs):
             print('DatabaseServer objects DoesNotExist')
 
         # Create and store tenant definition
-        if server:
-            db_name = uid
-            db_user = credentials_generator()
-            db_password = credentials_generator()
-            alias = uid
-            tenant = Tenant(
-                application=instance,
-                db_server=server,
-                db_name=db_name,
-                db_user=db_user,
-                db_password=db_password,
-                alias=alias
-            )
-            tenant.save()
+        if not server:
+            raise Exception('Server must be defined for tenant creation')
 
-            TenantLog.objects.create(
-                tenant=tenant,
-                message=_('Tenant object was created')
-            )
+        db_name = uid
+        db_user = credentials_generator()
+        db_password = credentials_generator()
+        alias = uid
+        tenant = Tenant(
+            application=instance,
+            db_server=server,
+            db_name=db_name,
+            db_user=db_user,
+            db_password=db_password,
+            alias=alias
+        )
+        tenant.save()
+
+        TenantLog.objects.create(
+            tenant=tenant,
+            message=_('Tenant object was created')
+        )
+
+        #
+
+
+
+
+
+
 
