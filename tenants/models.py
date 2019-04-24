@@ -30,3 +30,6 @@ class TenantLog(models.Model):
     message = models.CharField(max_length=255, blank=False, null=False)
     log_level = models.CharField(max_length=1, choices=LOG_LEVELS, default='I')
     date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '__{id}__{alias}'.format(alias=self.tenant.alias, id=self.id)
