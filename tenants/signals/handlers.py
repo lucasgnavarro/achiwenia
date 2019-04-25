@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from applications.models import Application
 from tenants.models import Tenant, TenantLog
 from engines.models import DatabaseServer
-from tenants.utils import credentials_generator
+from tenants.utils import credentials_generator, TenantManager
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -44,7 +44,9 @@ def tenant_creation_handler(sender, instance, created, **kwargs):
             message=_('Tenant object was created')
         )
 
-        #
+        #Create database and sql Credentials
+        tenant_manager = TenantManager(tenant)
+        tenant_manager.create_database()
 
 
 
