@@ -4,6 +4,7 @@ from .models import Tenant, TenantLog
 from psycopg2 import connect
 from psycopg2._psycopg import IntegrityError
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from django.utils.translation import ugettext_lazy as _
 
 
 def credentials_generator(length=8):
@@ -38,6 +39,15 @@ class TenantManager:
             cur.close()
             con.close()
 
+            TenantLog.objects.create(
+                tenant=tenant,
+                message=_(
+                    'Database {uid} for tenant id={tenant_id} was created'.format(
+                        uid=tenant.alias, tenant_id=tenant.id
+                    )
+                )
+            )
+
             # synchronized = False
             # if sync_db:
             #     sync_schema(db_alias=schema_name)
@@ -45,10 +55,15 @@ class TenantManager:
             #
             # return {'_error': False, '_message': '', 'synchronized': synchronized}
         except IntegrityError:
-            # log('-> ERROR: when create schema %s' % schema_name, _type='error')
-            # return {'_error': True, '_message': 'Error when create schema %s' % schema_name}
-            
-            pass #  TODO
+
+            TenantLog.objects.create(
+                tenant=tenant,
+                message=_(
+                    'Error on create database {uid} for tenant id={tenant_id}'.format(
+                        uid=tenant.alias, tenant_id=tenant.id, log_level='E'
+                    )
+                )
+            )
 
     def create_db_user(self): #TODO
         pass

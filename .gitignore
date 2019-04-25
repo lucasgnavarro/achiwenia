@@ -3,3 +3,7 @@ __pycache__/
 *.py[cod]
 jwtcas/settings
 
+# django migrations
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
