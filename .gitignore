@@ -1,9 +1,15 @@
 .idea
 __pycache__/
 *.py[cod]
+venv/
+
+
+# Project settings
 jwtcas/settings
 
 # django migrations
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+
+
